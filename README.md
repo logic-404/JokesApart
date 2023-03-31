@@ -1,4 +1,4 @@
-JokesApart
+# JokesApart
 JokesApart is a Flask web application that uses machine learning to generate jokes. The app uses a pre-trained BERT model and cosine similarity to find the closest match to a user's input query from a pre-existing dataset of jokes.
 
 ## Components
