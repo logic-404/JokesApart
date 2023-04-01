@@ -21,10 +21,11 @@ from gevent import pywsgi
 app = Flask(__name__)
 
 # Model saved with Keras model.save()
-MODEL_PATH = 'bert_transformer'
+MODEL_PATH = 'bert_transformer.pkl'
 
 # Load your trained model
-model = SentenceTransformer(MODEL_PATH)
+with open(MODEL_PATH, 'rb') as f:
+    model = pickle.load(f)
 
 # Printing that the model has loaded
 print('Model loaded. Start serving...')
@@ -49,9 +50,9 @@ def model_predict(my_query, model):
     similarity_score = cosine_similarity([my_query], sentence_embeddings).flatten()
 
     df = pd.DataFrame({"Sentence":sentences,"Similarity_Score":similarity_score })
-    df.sort_values(by=["Similarity_Score"], ascending=False)
+    df = df.sort_values(by=["Similarity_Score"], ascending=False)
 
-    result = df.head(10).sample(n=1)['Sentence'].iloc[0]
+    result = df.head(50).sample(n=1)['Sentence'].iloc[0]
     return result
 
 @app.route('/', methods=['GET'])
@@ -73,7 +74,6 @@ def upload():
 
 if __name__ == '__main__':
     # Uncomment when going for production
-    # server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
-    # server.serve_forever()
-
-    app.run(debug=True)
+    server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+    server.serve_forever()
+    # app.run(debug=True)

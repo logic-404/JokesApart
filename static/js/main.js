@@ -8,7 +8,8 @@ $(document).ready(function () {
       data: $("#query").val(),
       async: true,
       success: function (data) {
-        console.log("Result: " + data);
+        var joke = data.replace(/ {2}/g, "<br>"); // replace double spaces with a newline
+        $("#para").html(joke);
         $("#query").prop("disabled", false);
       },
     });

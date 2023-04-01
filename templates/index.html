@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
     <link
-      href="{{ url_for('static', filename='js/main.js') }}"
+      href="{{ url_for('static', filename='css/main.css') }}"
       rel="stylesheet"
     />
   </head>
@@ -34,11 +34,12 @@
         />
         <input
           id="btn-submit"
-          class="btn btn-primary"
+          class="btn btn-dark mb-2"
           type="submit"
           value="Submit"
         />
       </form>
+      <p id="para" class="lead fw-bold"></p>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
