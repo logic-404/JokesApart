@@ -1,6 +1,4 @@
 # Basic imports
-import numpy as np
-import os
 import pickle
 import pandas as pd
 
@@ -11,8 +9,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Flask utils
-from flask import Flask, redirect, url_for, request, render_template
-from werkzeug.utils import secure_filename
+from flask import Flask, request, render_template
 
 # For production environment
 from gevent import pywsgi
