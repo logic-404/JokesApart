@@ -1,5 +1,6 @@
 # Basic imports
 import pickle
+import random
 import pandas as pd
 
 # Importing sentence transformer
@@ -46,10 +47,19 @@ def model_predict(my_query, model):
     my_query = model.encode(my_query)
     similarity_score = cosine_similarity([my_query], sentence_embeddings).flatten()
 
-    df = pd.DataFrame({"Sentence":sentences,"Similarity_Score":similarity_score })
-    df = df.sort_values(by=["Similarity_Score"], ascending=False)
+    # df = pd.DataFrame({"Sentence":sentences,"Similarity_Score":similarity_score })
+    # df = df.sort_values(by=["Similarity_Score"], ascending=False)
 
-    result = df.head(50).sample(n=1)['Sentence'].iloc[0]
+    # result = df.head(50).sample(n=1)['Sentence'].iloc[0]
+
+    sentence_scores = list(zip(sentences, similarity_score))
+
+    # Sort the list of tuples by similarity_score
+    sentence_scores.sort(key=lambda x: x[1], reverse=True)
+
+    # Get a random sentence from the top 20
+    result = random.choice([x[0] for x in sentence_scores[:20]])
+
     return result
 
 @app.route('/', methods=['GET'])
