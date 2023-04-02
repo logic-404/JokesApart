@@ -47,11 +47,6 @@ def model_predict(my_query, model):
     my_query = model.encode(my_query)
     similarity_score = cosine_similarity([my_query], sentence_embeddings).flatten()
 
-    # df = pd.DataFrame({"Sentence":sentences,"Similarity_Score":similarity_score })
-    # df = df.sort_values(by=["Similarity_Score"], ascending=False)
-
-    # result = df.head(50).sample(n=1)['Sentence'].iloc[0]
-
     sentence_scores = list(zip(sentences, similarity_score))
 
     # Sort the list of tuples by similarity_score
